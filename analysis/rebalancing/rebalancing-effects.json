@@ -1,0 +1,166 @@
+{
+  "onlyEquity": {
+    "boxPlotValues": {
+      "min": {
+        "initial": {
+          "date": "2001-11-26",
+          "equityShares": 0.8639905669371664,
+          "bondShares": 0,
+          "equityMarketValue": 1000,
+          "bondMarketValue": 0
+        },
+        "final": {
+          "date": "2011-11-25",
+          "equityShares": 0.8639905669371664,
+          "bondShares": 0,
+          "equityMarketValue": 1001.0799882086715,
+          "bondMarketValue": 0
+        }
+      },
+      "max": {
+        "initial": {
+          "date": "2009-03-05",
+          "equityShares": 1.4650941580560104,
+          "bondShares": 0,
+          "equityMarketValue": 1000,
+          "bondMarketValue": 0
+        },
+        "final": {
+          "date": "2019-03-05",
+          "equityShares": 1.4650941580560104,
+          "bondShares": 0,
+          "equityMarketValue": 4087.0997744417223,
+          "bondMarketValue": 0
+        }
+      },
+      "median": 1715.932492069696,
+      "firstQuartile": 1604.8496045463148,
+      "thirdQuartile": 2126.439311316132,
+      "average": 1954.7766619679367,
+      "totalMarketValueStdDev": 604.2739465394977
+    }
+  },
+  "equity90percent": {
+    "boxPlotValues": {
+      "min": {
+        "initial": {
+          "date": "2001-11-26",
+          "equityShares": 0.7775915102434497,
+          "bondShares": 19.44059304695525,
+          "equityMarketValue": 900,
+          "bondMarketValue": 99.99999999999997
+        },
+        "final": {
+          "date": "2011-11-25",
+          "equityShares": 0.827999567469472,
+          "bondShares": 13.17728916038202,
+          "equityMarketValue": 959.3782952718341,
+          "bondMarketValue": 119.82271114192045
+        }
+      },
+      "max": {
+        "initial": {
+          "date": "2009-03-05",
+          "equityShares": 1.3185847422504093,
+          "bondShares": 13.108247250381282,
+          "equityMarketValue": 900,
+          "bondMarketValue": 99.99999999999997
+        },
+        "final": {
+          "date": "2019-03-05",
+          "equityShares": 1.212056909478151,
+          "bondShares": 31.76492798919872,
+          "equityMarketValue": 3381.214438744147,
+          "bondMarketValue": 351.26546788439646
+        }
+      },
+      "median": 1731.0856461299059,
+      "firstQuartile": 1630.4619418734187,
+      "thirdQuartile": 2084.117024873132,
+      "average": 1931.7643083212117,
+      "totalMarketValueStdDev": 518.3953727467568
+    }
+  },
+  "equityWith2pFunction": {
+    "boxPlotValues": {
+      "min": {
+        "initial": {
+          "date": "2001-10-01",
+          "equityShares": null,
+          "bondShares": null,
+          "equityMarketValue": null,
+          "bondMarketValue": null
+        },
+        "final": {
+          "date": "2011-09-30",
+          "equityShares": null,
+          "bondShares": null,
+          "equityMarketValue": null,
+          "bondMarketValue": null
+        }
+      },
+      "max": {
+        "initial": {
+          "date": "2010-10-05",
+          "equityShares": null,
+          "bondShares": null,
+          "equityMarketValue": null,
+          "bondMarketValue": null
+        },
+        "final": {
+          "date": "2020-10-05",
+          "equityShares": null,
+          "bondShares": null,
+          "equityMarketValue": null,
+          "bondMarketValue": null
+        }
+      },
+      "median": 0,
+      "firstQuartile": 0,
+      "thirdQuartile": 0,
+      "average": 0,
+      "totalMarketValueStdDev": 0
+    }
+  },
+  "equity90percentNoRebalance": {
+    "boxPlotValues": {
+      "min": {
+        "initial": {
+          "date": "2001-11-26",
+          "equityShares": 0.7775915102434497,
+          "bondShares": 19.44059304695525,
+          "equityMarketValue": 900,
+          "bondMarketValue": 99.99999999999997
+        },
+        "final": {
+          "date": "2011-11-25",
+          "equityShares": 0.7775915102434497,
+          "bondShares": 19.44059304695525,
+          "equityMarketValue": 900.9719893878043,
+          "bondMarketValue": 176.77570376890887
+        }
+      },
+      "max": {
+        "initial": {
+          "date": "2009-03-05",
+          "equityShares": 1.3185847422504093,
+          "bondShares": 13.108247250381282,
+          "equityMarketValue": 900,
+          "bondMarketValue": 99.99999999999997
+        },
+        "final": {
+          "date": "2019-03-05",
+          "equityShares": 1.3185847422504093,
+          "bondShares": 13.108247250381282,
+          "equityMarketValue": 3678.3897969975496,
+          "bondMarketValue": 144.95466840394633
+        }
+      },
+      "median": 1704.5817456769985,
+      "firstQuartile": 1603.2948752134755,
+      "thirdQuartile": 2058.907475168009,
+      "average": 1916.5791527717297,
+      "totalMarketValueStdDev": 537.0692846717369
+    }
+  }
+}

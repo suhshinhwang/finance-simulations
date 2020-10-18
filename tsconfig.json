@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@test/*": ["test/*"],
+      "@resource/*": ["resource/*"]
+    },
+    "target": "ES5",
+    "lib": ["ES2019", "DOM"],
+    "outDir": "./dist",
+    "rootDir": ".",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules"]
+}

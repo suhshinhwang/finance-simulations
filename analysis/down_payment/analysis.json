@@ -1,0 +1,124 @@
+[
+  {
+    "conditions": {
+      "horizonInYears": 3,
+      "savingsInterest": 0.02,
+      "downPaymentMonthlyContribution": 1000,
+      "downPaymentEquityRatio": 0.1,
+      "retirementMonthlyContribution": 1000,
+      "retirementEquityRatio": 0.9,
+      "compoundsPerYear": 12
+    },
+    "savingsBalance": 37070.108975784344,
+    "worseThanSavings": {
+      "median": 248.84573612413806,
+      "firstQuartile": 100.5977553959383,
+      "thirdQuartile": 415.36324245148717,
+      "min": {
+        "startDate": "2015-07-28",
+        "endDate": "2018-07-27",
+        "unmetAmount": 1.8367852695955662,
+        "downPaymentBondValue": 32617.266831889057,
+        "downPaymentEquityValue": 4451.005358625693,
+        "retirementBondValue": 3622.303973829187,
+        "retirementEquityValue": 40059.04822763124,
+        "equityRatio": 0.9170743625993318
+      },
+      "max": {
+        "startDate": "2005-11-01",
+        "endDate": "2008-10-31",
+        "unmetAmount": 1068.94897746294,
+        "downPaymentBondValue": 33434.22922320378,
+        "downPaymentEquityValue": 2566.930775117623,
+        "retirementBondValue": 2645.9653806708125,
+        "retirementEquityValue": 23102.376976058615,
+        "equityRatio": 0.8972374475990577
+      },
+      "stdDev": 288.7120566725032
+    },
+    "betterThanSavings": {
+      "median": 2494.988156896223,
+      "firstQuartile": 1684.8216094709605,
+      "thirdQuartile": 3284.1814376746443,
+      "min": {
+        "startDate": "2015-03-10",
+        "endDate": "2018-03-09",
+        "surplus": 1.1981238585722167,
+        "downPaymentBondValue": 32532.240352460733,
+        "downPaymentEquityValue": 4539.066747182183
+      },
+      "max": {
+        "startDate": "2002-06-24",
+        "endDate": "2005-06-24",
+        "surplus": 4863.266921937742,
+        "downPaymentBondValue": 37637.95393907996,
+        "downPaymentEquityValue": 4295.421958642121
+      },
+      "stdDev": 1084.240404498292
+    },
+    "worseResultCount": 65,
+    "totalDataPoints": 3945,
+    "poorResultPercentage": 1.6476552598225602
+  },
+  {
+    "conditions": {
+      "horizonInYears": 5,
+      "savingsInterest": 0.02,
+      "downPaymentMonthlyContribution": 1000,
+      "downPaymentEquityRatio": 0.1,
+      "retirementMonthlyContribution": 1000,
+      "retirementEquityRatio": 0.9,
+      "compoundsPerYear": 12
+    },
+    "savingsBalance": 63047.35591849177,
+    "worseThanSavings": {
+      "median": 197.55532166431658,
+      "firstQuartile": 197.55532166431658,
+      "thirdQuartile": 197.55532166431658,
+      "min": {
+        "startDate": "2013-11-22",
+        "endDate": "2018-11-21",
+        "unmetAmount": 197.55532166431658,
+        "downPaymentBondValue": 55608.368984411856,
+        "downPaymentEquityValue": 7241.431612415599,
+        "retirementBondValue": 5981.1523432703325,
+        "retirementEquityValue": 65172.88451174043,
+        "equityRatio": 0.9159407869513011
+      },
+      "max": {
+        "startDate": "2013-11-22",
+        "endDate": "2018-11-21",
+        "unmetAmount": 197.55532166431658,
+        "downPaymentBondValue": 55608.368984411856,
+        "downPaymentEquityValue": 7241.431612415599,
+        "retirementBondValue": 5981.1523432703325,
+        "retirementEquityValue": 65172.88451174043,
+        "equityRatio": 0.9159407869513011
+      },
+      "stdDev": 0
+    },
+    "betterThanSavings": {
+      "median": 5526.772031203771,
+      "firstQuartile": 4141.16064552177,
+      "thirdQuartile": 6854.3486268214765,
+      "min": {
+        "startDate": "2013-10-07",
+        "endDate": "2018-10-05",
+        "surplus": 127.21535974002472,
+        "downPaymentBondValue": 55156.40975211176,
+        "downPaymentEquityValue": 8018.161526120038
+      },
+      "max": {
+        "startDate": "2010-02-01",
+        "endDate": "2015-02-02",
+        "surplus": 9456.909217728666,
+        "downPaymentBondValue": 63888.391954855586,
+        "downPaymentEquityValue": 8615.873181364845
+      },
+      "stdDev": 1986.2319541396403
+    },
+    "worseResultCount": 1,
+    "totalDataPoints": 3450,
+    "poorResultPercentage": 0.028985507246376812
+  }
+]
