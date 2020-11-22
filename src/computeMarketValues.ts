@@ -1,4 +1,5 @@
-const _ = require("lodash");
+// const _ = require("lodash");
+import * as _ from "lodash"
 
 const OPEN = 'open';
 const CLOSE = 'close';
@@ -9,7 +10,7 @@ function getPriceOfDay(prices, dateString, openClose, fund) {
   return prices[dateString][openClose][fund];
 }
 
-module.exports.computeMarketValues = function ({
+function computeMarketValues({
   prices,
   dollarChangeFunction, // Returns dollars to buy equity & bonds; + means to buy equity, - means to sell
   portfolioInitializationFunction // Returns initial dollars to buy equity & bonds
@@ -71,3 +72,5 @@ module.exports.computeMarketValues = function ({
 
   return values.slice(1);
 }
+
+export { computeMarketValues }
