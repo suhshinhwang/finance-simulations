@@ -9,7 +9,7 @@ const equityWith2pFunction = require("../../simulation_results/rebalancing/10y-(
 const { writeJsonToFile } = require("../../src/file-utils")
 
 function getTotalMarketValue(prices) {
-  return prices.final.equityMarketValue + prices.final.bondMarketValue
+  return prices.final.marketValues.equity + prices.final.marketValues.bondMarketValue
 }
 
 function getBoxPlotValues(array) {
@@ -72,5 +72,5 @@ const output = {
   }
 }
 
-const outputPath = path.join("analysis", "rebalancing", "rebalancing-effects.json")
+const outputPath = path.join("analysis", "rebalancing", "rebalancing-effects-validate.json")
 writeJsonToFile(output, outputPath)

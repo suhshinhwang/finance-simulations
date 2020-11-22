@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@test/*": ["test/*"],
-      "@resource/*": ["resource/*"]
+      "@src/*": ["./src"],
+      "@test/*": ["./test"],
+      "@resource/*": ["./resource"]
     },
     "target": "ES5",
     "lib": ["ES2019", "DOM"],

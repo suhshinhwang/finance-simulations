@@ -1,76 +1,83 @@
-// const _ = require("lodash");
 import * as _ from "lodash"
 
-const OPEN = 'open';
-const CLOSE = 'close';
-const EQUITY = 'equity';
-const BOND = 'bond';
+import { DollarByFund, SharesByFund, OpenClosePriceByFund } from "./types"
 
-function getPriceOfDay(prices, dateString, openClose, fund) {
-  return prices[dateString][openClose][fund];
+type DollarChangeFunction = (input: {
+  previousDayPortfolio: ComputedMarketValueOutput,
+  openingPrices: DollarByFund,
+  todayDateString: string
+}) => DollarByFund
+
+type PortfolioInitializationFunction = (openingPriceByFund: DollarByFund) => DollarByFund
+
+type ComputedMarketValueOutput = {
+  date: string,
+  shares: SharesByFund,
+  marketValues: DollarByFund
+}
+
+type ComputeMarketValueFunction = {
+  prices: { [dateString: string]: OpenClosePriceByFund },
+  dollarChangeFunction: DollarChangeFunction,
+  portfolioInitializationFunction: PortfolioInitializationFunction
 }
 
 function computeMarketValues({
   prices,
-  dollarChangeFunction, // Returns dollars to buy equity & bonds; + means to buy equity, - means to sell
+  dollarChangeFunction, // + means to buy equity, - means to sell
   portfolioInitializationFunction // Returns initial dollars to buy equity & bonds
-}) {
+}: ComputeMarketValueFunction): ComputedMarketValueOutput[] {
   const availableDateStrings = Object.keys(prices);
 
   const startDateString = availableDateStrings[0]
   const lastDayIndex = availableDateStrings.length - 1
 
-  const { equityDollars, bondDollars } = portfolioInitializationFunction({
-    bondOpeningPrice: getPriceOfDay(prices, startDateString, OPEN, BOND),
-    equityOpeningPrice: getPriceOfDay(prices, startDateString, OPEN, EQUITY),
-  })
+  const dollarsByFund = portfolioInitializationFunction(prices[startDateString].open)
 
-  const equitySharesInitial = equityDollars / getPriceOfDay(prices, startDateString, CLOSE, EQUITY);
-  const bondSharesInitial = bondDollars / getPriceOfDay(prices, startDateString, CLOSE, BOND);
+  const initialSharesByFund = _.reduce(prices[startDateString].close, (sharesByFund, closingPrice, fund) => {
+    sharesByFund[fund] = dollarsByFund[fund] / closingPrice
+    return sharesByFund
+  }, {})
 
   const values = [{
-    equityShares: equitySharesInitial,
-    bondShares: bondSharesInitial,
+    shares: initialSharesByFund,
     date: startDateString,
-    equityMarketValue: null,
-    bondMarketValue: null,
-    ratio: null,
+    marketValues: {},
   }];
 
   for (let i = 0; i <= lastDayIndex; i++) {
     const today = availableDateStrings[i];
-    const equitySharesYesterday = values[i].equityShares;
-    const bondSharesYesterday = values[i].bondShares;
 
-    const { equityDollarChange, bondDollarChange } = dollarChangeFunction({
+    const dollarChangeByFund = dollarChangeFunction({
       previousDayPortfolio: values[i],
-      bondOpeningPrice: getPriceOfDay(prices, today, OPEN, BOND),
-      equityOpeningPrice: getPriceOfDay(prices, today, OPEN, EQUITY),
+      openingPrices: prices[today].open,
       todayDateString: today
     })
 
-    const equityShareChange = equityDollarChange / getPriceOfDay(prices, today, CLOSE, EQUITY);
-    const bondShareChange = bondDollarChange / getPriceOfDay(prices, today, CLOSE, BOND);
+    const shareChangesByFund = _.reduce(prices[today].close, (shareChangeByFund, closingPrice, fund) => {
+      shareChangeByFund[fund] = dollarChangeByFund[fund] / closingPrice
+      return shareChangeByFund
+    }, {})
 
-    const equitySharesToday = equitySharesYesterday + equityShareChange;
-    const bondSharesToday = bondSharesYesterday + bondShareChange;
+    const todaySharesByFund: SharesByFund = _.reduce(values[i].shares, (sharesByFund, sharesYesterday, fund) => {
+      sharesByFund[fund] = sharesYesterday + shareChangesByFund[fund]
 
-    const equityCloseValue = equitySharesToday * getPriceOfDay(prices, today, CLOSE, EQUITY);
-    const bondCloseValue = bondSharesToday * getPriceOfDay(prices, today, CLOSE, BOND);
+      return sharesByFund
+    }, {})
 
-    const closingRatio = equityCloseValue / (equityCloseValue + bondCloseValue);
+    const todayMarketValuesByFund: DollarByFund = _.reduce(todaySharesByFund, (sharesByFund, sharesToday, fund) => {
+      sharesByFund[fund] = sharesToday * prices[today].close[fund]
+      return sharesByFund;
+    }, {})
 
     values.push({
       date: today,
-      equityShares: equitySharesToday,
-      bondShares: bondSharesToday,
-      equityMarketValue: equityCloseValue,
-      bondMarketValue: bondCloseValue,
-      ratio: closingRatio,
+      shares: todaySharesByFund, // {[fund: shareCount]}
+      marketValues: todayMarketValuesByFund,
     });
   }
 
   return values.slice(1);
 }
 
-export { computeMarketValues }
+export { computeMarketValues, DollarChangeFunction, ComputedMarketValueOutput, PortfolioInitializationFunction }

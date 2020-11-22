@@ -1,5 +1,5 @@
 const _ = require("lodash")
-const { findClosestDate, formatDate, dateFrom, durationBetweenInDays } = require("../src/utils")
+const { findClosestDate, formatDate, dateFrom, durationBetweenInDays } = require("./utils")
 const { DateTime } = require("luxon")
 
 /**

@@ -73,3 +73,22 @@ class Duration {
 }
 
 module.exports.Duration = Duration
+
+// Sample frequency is n per year.
+function sample(sampleFrequency, simulationValues) {
+  const samplePeriod = Duration.fromObject({ year: (1 / sampleFrequency) })
+
+  const startDate = simulationValues[0].date
+  const endDate = dateFrom(_.last(simulationValues).date)
+
+  const output = []
+  for (
+    let currentDate = DateTime.fromJSDate(dateFrom(startDate));
+    +dateFrom(currentDate) <= endDate;
+    currentDate = currentDate.plus(samplePeriod)
+  ) {
+    const currentDateString = formatDate(currentDate)
+
+    output.push(simulationValues[currentDateString])
+  }
+}

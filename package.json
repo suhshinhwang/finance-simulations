@@ -7,9 +7,9 @@
     "test": "npx jest"
   },
   "_moduleAliases": {
-    "@src": "./dist/src",
-    "@test": "./dist/test",
-    "@resource": "./dist/resource"
+    "@src": "dist/src",
+    "@test": "dist/test",
+    "@resource": "dist/resource"
   },
   "author": "",
   "license": "ISC",

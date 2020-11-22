@@ -37,31 +37,28 @@ describe("computing market values", function () {
 
     const values = computeMarketValues({
       prices,
-      dollarChangeFunction: () => ({ equityDollarChange: 0, bondDollarChange: 0 }),
-      portfolioInitializationFunction: () => ({ equityDollars: 200, bondDollars: 200 })
+      dollarChangeFunction: () => ({ equity: 0, bond: 0 }),
+      portfolioInitializationFunction: () => ({ equity: 200, bond: 200 })
     })
 
     expect(values).toHaveLength(3)
 
     expect(values[0].date).toEqual("2000-01-01")
-    expect(values[0].equityShares).toBeCloseTo(1, 4)
-    expect(values[0].bondShares).toBeCloseTo(1, 4)
-    expect(values[0].equityMarketValue).toBeCloseTo(200, 4)
-    expect(values[0].bondMarketValue).toBeCloseTo(200, 4)
-    expect(values[0].ratio).toBeCloseTo(0.5, 4)
+    expect(values[0].shares.equity).toBeCloseTo(1, 4)
+    expect(values[0].shares.bond).toBeCloseTo(1, 4)
+    expect(values[0].marketValues.equity).toBeCloseTo(200, 4)
+    expect(values[0].marketValues.bond).toBeCloseTo(200, 4)
 
     expect(values[1].date).toEqual("2000-01-02")
-    expect(values[1].equityShares).toBeCloseTo(1, 4)
-    expect(values[1].bondShares).toBeCloseTo(1, 4)
-    expect(values[1].equityMarketValue).toBeCloseTo(300, 4)
-    expect(values[1].bondMarketValue).toBeCloseTo(300, 4)
-    expect(values[1].ratio).toBeCloseTo(0.5, 4)
+    expect(values[1].shares.equity).toBeCloseTo(1, 4)
+    expect(values[1].shares.bond).toBeCloseTo(1, 4)
+    expect(values[1].marketValues.equity).toBeCloseTo(300, 4)
+    expect(values[1].marketValues.bond).toBeCloseTo(300, 4)
 
     expect(values[2].date).toEqual("2001-01-02")
-    expect(values[2].equityShares).toBeCloseTo(1, 4)
-    expect(values[2].bondShares).toBeCloseTo(1, 4)
-    expect(values[2].equityMarketValue).toBeCloseTo(450, 4)
-    expect(values[2].bondMarketValue).toBeCloseTo(600, 4)
-    expect(values[2].ratio).toBeCloseTo(0.42857, 4)
+    expect(values[2].shares.equity).toBeCloseTo(1, 4)
+    expect(values[2].shares.bond).toBeCloseTo(1, 4)
+    expect(values[2].marketValues.equity).toBeCloseTo(450, 4)
+    expect(values[2].marketValues.bond).toBeCloseTo(600, 4)
   })
 })
