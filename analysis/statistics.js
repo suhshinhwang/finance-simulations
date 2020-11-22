@@ -1,5 +1,7 @@
 const _ = require("lodash")
 
+const { log } = require("../src/utils")
+
 const identityValueFunction = (v) => v
 
 function getMedian(array, valueFunction = identityValueFunction) {
@@ -44,3 +46,20 @@ function getStandardDeviation(array, valueFunction = identityValueFunction) {
 }
 
 module.exports.getStandardDeviation = getStandardDeviation
+
+function getCorrelation(vector1, vector2) {
+  if (vector1.length != vector2.length) {
+    throw new Error("vector lengths not equivalent")
+  }
+  const v1Avg = _.sum(vector1) / vector1.length
+  const v2Avg = _.sum(vector2) / vector2.length
+
+  const v1StdDev = getStandardDeviation(vector1)
+  const v2StdDev = getStandardDeviation(vector2)
+
+  const dataPairs = _.zip(vector1, vector2)
+
+  return _.sum(dataPairs.map(data => (data[0] - v1Avg) * (data[1] - v2Avg))) / (v1StdDev * v2StdDev * vector1.length)
+}
+
+module.exports.getCorrelation = getCorrelation
