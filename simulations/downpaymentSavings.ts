@@ -10,17 +10,17 @@
  * - calculate how many of these prices performed worse than just regular savings at 1.5%
  */
 
-const path = require("path")
-const _ = require("lodash")
-const { Duration } = require("luxon")
-const prices = require("../resource/converted/mergedPrices.json")
-const { rebalancePortfolioFunction } = require("../src/strategies/rebalance")
-const { computeMarketValues } = require("../src/computeMarketValues")
-const { writeJsonToFile } = require("../src/file-utils")
+import * as path from "path"
+import * as _ from "lodash"
+import { Duration } from "luxon"
+import prices from "../resource/converted/mergedPrices.json"
+import { rebalancePortfolioFunction } from "../src/strategies/rebalance"
+import { computeMarketValues } from "../src/computeMarketValues"
+import { writeJsonToFile } from "../src/file-utils"
 
-const { runSlidingWindowSimulation } = require("../src/runSlidingWindowSimulation")
-const { dollarCostAveraging } = require("../src/strategies/dollarCostAveraging")
-const { compositeInvestmentStrategy } = require("../src/strategies/compositeStrategies")
+import { runSlidingWindowSimulation } from "../src/runSlidingWindowSimulation"
+import { dollarCostAveraging } from "../src/strategies/dollarCostAveraging"
+import { compositeInvestmentStrategy } from "../src/strategies/compositeStrategies"
 
 function getRebalancedAndDcaValues({
   prices,
@@ -87,10 +87,10 @@ function simulateResults({
     return {
       startDate: downPayment[0].date,
       endDate: lastDownPaymentValues.date,
-      downPaymentEquityValue: lastDownPaymentValues.equityMarketValue,
-      downPaymentBondValue: lastDownPaymentValues.bondMarketValue,
-      retirementEquityValue: lastRetirementValues.equityMarketValue,
-      retirementBondValue: lastRetirementValues.bondMarketValue,
+      downPaymentEquityValue: lastDownPaymentValues.marketValues.equity,
+      downPaymentBondValue: lastDownPaymentValues.marketValues.bond,
+      retirementEquityValue: lastRetirementValues.marketValues.equity,
+      retirementBondValue: lastRetirementValues.marketValues.bond,
     }
   })
 
@@ -115,7 +115,7 @@ function simulateResults({
     simulationResults
   }
 
-  const writePath = path.join("simulation_results", "down_payment", `${filename}.json`)
+  const writePath = path.join("simulation_results", "down_payment", `${filename}-validate.json`)
   writeJsonToFile(fileContent, writePath)
 }
 

@@ -2,13 +2,12 @@ import * as path from "path"
 import * as _ from "lodash"
 import { Duration, DateTime } from "luxon"
 import * as mergedPrices from "../resource/converted/mergedPrices.json"
-import { rebalancePortfolioFunction, initializePortfolioByEquityRatio, getEquityRatios, RatioByFund } from "../src/strategies/rebalance"
+import { rebalancePortfolioFunction, initializePortfolioByEquityRatio, getEquityRatios } from "../src/strategies/rebalance"
 import { computeMarketValues } from "../src/computeMarketValues"
-import { dateFrom, formatDate, log } from "../src/utils"
 import { writeJsonToFile } from "../src/file-utils"
 
 import { runSlidingWindowSimulation } from "../src/runSlidingWindowSimulation"
-import { OpenClosePriceByFundByDate } from "src/types"
+import { OpenClosePriceByFundByDate, RatioByFund } from "../src/types"
 
 function getRebalancedValues({
   prices,

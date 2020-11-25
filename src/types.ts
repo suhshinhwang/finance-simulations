@@ -12,4 +12,7 @@ type OpenClosePriceByFund = { [priceType in PriceType]: DollarByFund }
 
 type OpenClosePriceByFundByDate = { [date: string]: OpenClosePriceByFund }
 
-export { DollarByFund, SharesByFund, OpenClosePriceByFund, OpenClosePriceByFundByDate }
+type RatioByFund = { [fund: string]: number; };
+
+
+export { DollarByFund, SharesByFund, OpenClosePriceByFund, OpenClosePriceByFundByDate, RatioByFund }

@@ -3,9 +3,9 @@ import * as _ from "lodash"
 import { DollarByFund, SharesByFund, OpenClosePriceByFund } from "./types"
 
 type DollarChangeFunction = (input: {
-  previousDayPortfolio: ComputedMarketValueOutput,
-  openingPrices: DollarByFund,
-  todayDateString: string
+  previousDayPortfolio?: ComputedMarketValueOutput,
+  openingPrices?: DollarByFund,
+  todayDateString?: string
 }) => DollarByFund
 
 type PortfolioInitializationFunction = (openingPriceByFund: DollarByFund) => DollarByFund

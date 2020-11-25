@@ -2,6 +2,7 @@ import * as _ from "lodash";
 import { DateTime } from "luxon";
 import { dateFrom, log } from "../utils";
 import { DollarChangeFunction, PortfolioInitializationFunction } from "../computeMarketValues"
+import { RatioByFund } from "../types";
 
 function getAnnualEquityRatio(yearCounts, equityRatio: EquityRatioFunction | RatioByFund): RatioByFund[] {
   if (equityRatio instanceof Function) {
@@ -31,8 +32,6 @@ function getEquityRatios(dateStrings: string[], equityRatioFunction: EquityRatio
 
   return dateStrings.map(string => equityRatiosByYear[string.substr(0, 4)])
 }
-
-type RatioByFund = { [fund: string]: number }
 
 function initializePortfolioByEquityRatio(investmentAmount, initialEquityRatioByFund: RatioByFund): PortfolioInitializationFunction {
   return function (openingPriceByFund) {
