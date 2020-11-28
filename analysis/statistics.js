@@ -63,3 +63,23 @@ function getCorrelation(vector1, vector2) {
 }
 
 module.exports.getCorrelation = getCorrelation
+
+function histogram(vector, buckets) {
+  const min = _.min(vector)
+  const max = _.max(vector)
+
+  const range = max - min
+  const bucketSize = range / buckets
+
+  return _.reduce(vector, (histogram, value) => {
+    const bucketCounts = _.floor((value - min) / bucketSize)
+    const bucket = min + bucketCounts * bucketSize
+    if (histogram[bucket] == null) {
+      histogram[bucket] = 0
+    }
+    histogram[bucket]++;
+    return histogram
+  }, {})
+}
+
+module.exports.histogram = histogram

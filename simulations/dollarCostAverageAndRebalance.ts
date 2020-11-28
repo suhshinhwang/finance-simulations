@@ -53,7 +53,7 @@ function getRebalancedAndDcaValues({
     return {
       startDate: _.keys(prices)[0],
       endDate: lastSimulationResult.date,
-      marketShares: lastSimulationResult.marketValues,
+      marketValues: lastSimulationResult.marketValues,
       shares: lastSimulationResult.shares
     }
   }
@@ -98,26 +98,26 @@ function simulateResults({
 const equityRatio = 0.9
 const horizon = Duration.fromObject({ years: 10 })
 
-simulateResults({
-  prices: portfolioPrices,
-  horizon,
-  monthlyContribution: 1000,
-  ratioByFund: {
-    "900": equityRatio / 4,
-    "903": equityRatio / 4,
-    "908": equityRatio / 4,
-    "902": equityRatio / 4,
-    "909": 1 - equityRatio
-  },
-  filename: "10-year-sp500-nasdaq-djia"
-})
+// simulateResults({
+//   prices: portfolioPrices,
+//   horizon,
+//   monthlyContribution: 1000,
+//   ratioByFund: {
+//     "900": equityRatio / 4,
+//     "903": equityRatio / 4,
+//     "908": equityRatio / 4,
+//     "902": equityRatio / 4,
+//     "909": 1 - equityRatio
+//   },
+//   filename: "10-year-sp500-nasdaq-djia"
+// })
 
 simulateResults({
   prices: simplifiedPrices,
   horizon,
   monthlyContribution: 1000,
   ratioByFund: {
-    "equity": equityRatio / 4,
+    "equity": equityRatio,
     "bond": 1 - equityRatio
   },
   filename: "10-year-simplified"
