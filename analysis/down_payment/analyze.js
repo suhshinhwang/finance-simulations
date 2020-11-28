@@ -1,7 +1,7 @@
 const _ = require("lodash")
 const path = require("path")
-const r1 = require("../../simulation_results/down_payment/r1k-d1k-0_9-2pSavings-3y.json")
-const r2 = require("../../simulation_results/down_payment/r1k-d1k-0_9-2pSavings-5y.json")
+const r1 = require("../../simulation_results/down_payment/r1k-d1k-0_9-2pSavings-3y-validate.json")
+const r2 = require("../../simulation_results/down_payment/r1k-d1k-0_9-2pSavings-5y-validate.json")
 const { writeJsonToFile } = require("../../src/file-utils")
 
 const { getQuartiles, getStandardDeviation } = require("../statistics")
@@ -73,5 +73,5 @@ function analyzeResults(results) {
 
 const analysisResults = [r1, r2].map(analyzeResults)
 
-const outputPath = path.join("analysis", "down_payment", "analysis.json")
+const outputPath = path.join("analysis", "down_payment", "analysis-validate.json")
 writeJsonToFile(analysisResults, outputPath)

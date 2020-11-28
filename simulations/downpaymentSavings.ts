@@ -1,26 +1,21 @@
-
 /**
- * - get prices
- * - invest the prices over a period of 3 years
- *  - use dollar cost averaging for 866 a month
- *  - assume that retirement ratio is at 90% equity
- *  => 10% of equity and DCA at 866 a month also
- *  => this means that equity would be 86.6/month for down payment
- * ? see what happens when there's more money that can be equity for down payment
- * - calculate how many of these prices performed worse than just regular savings at 1.5%
+ * This simulation answers the question: what is the result if I put 90% bonds and 10% in stocks for my down payment?
+ * How much better or worse would it perform compared to a savings with 2% interest rate, compounded monthly for the same
+ * period.
  */
 
 import * as path from "path"
 import * as _ from "lodash"
 import { Duration } from "luxon"
-import prices from "../resource/converted/mergedPrices.json"
-import { rebalancePortfolioFunction } from "../src/strategies/rebalance"
+import * as prices from "../resource/converted/mergedPrices.json"
+import { rebalancePortfolioFunction, RatioByFundByDate, getEquityRatiosByFundByDate } from "../src/strategies/rebalance"
 import { computeMarketValues } from "../src/computeMarketValues"
 import { writeJsonToFile } from "../src/file-utils"
 
 import { runSlidingWindowSimulation } from "../src/runSlidingWindowSimulation"
 import { dollarCostAveraging } from "../src/strategies/dollarCostAveraging"
 import { compositeInvestmentStrategy } from "../src/strategies/compositeStrategies"
+import { OpenClosePriceByFundByDate, RatioByFund, } from "src/types"
 
 function getRebalancedAndDcaValues({
   prices,
@@ -28,13 +23,22 @@ function getRebalancedAndDcaValues({
   equityRatio,
   ratioTolerance,
   horizon
+}: {
+  prices: OpenClosePriceByFundByDate,
+  monthlyContribution: number,
+  equityRatio: number,
+  ratioTolerance: number,
+  horizon: Duration
 }) {
-  const rebalanceStrategy = rebalancePortfolioFunction(equityRatio, ratioTolerance)
+  const priceDates = Object.keys(prices)
+  const ratioByFund: RatioByFund = { "equity": equityRatio, "bond": 1 - equityRatio }
+  const equityRatiosByFundByDate: RatioByFundByDate = getEquityRatiosByFundByDate(priceDates, ratioByFund)
+  const rebalanceStrategy = rebalancePortfolioFunction(equityRatiosByFundByDate, ratioTolerance)
   // Due to the way DCA is implemented, it needs to be reset or else the "start date" is always wrong.
-  const dollarCostAveragingStrategy = () => dollarCostAveraging(monthlyContribution, Duration.fromObject({ month: 1 }), equityRatio)
+  const dollarCostAveragingStrategy = () => dollarCostAveraging(monthlyContribution, Duration.fromObject({ month: 1 }), ratioByFund)
 
   const investmentStrategy = () => compositeInvestmentStrategy([rebalanceStrategy, dollarCostAveragingStrategy()])
-  const initialInvestment = () => ({ equityDollars: 0, bondDollars: 0 })
+  const initialInvestment = () => ({ equity: 0, bond: 0 })
 
   const marketValueFunction = (prices) => computeMarketValues({
     prices,
@@ -54,6 +58,15 @@ function simulateResults({
   retirementEquityRatio,
   compoundsPerYear = 12,
   filename,
+}: {
+  horizon: Duration,
+  savingsInterest: number,
+  downPaymentMonthlyContribution: number,
+  downPaymentEquityRatio: number,
+  retirementMonthlyContribution: number,
+  retirementEquityRatio: number,
+  compoundsPerYear?: number,
+  filename: string,
 }) {
   if (downPaymentEquityRatio > 1 || downPaymentEquityRatio < 0) {
     throw new Error(`down payment equity ratio invalid; it is '${downPaymentEquityRatio}`)

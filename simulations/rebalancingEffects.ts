@@ -1,6 +1,10 @@
+/**
+ * This document answers the question: how does rebalancing affect investments?
+ */
+
 import * as path from "path"
 import * as _ from "lodash"
-import { Duration, DateTime } from "luxon"
+import { Duration } from "luxon"
 import * as mergedPrices from "../resource/converted/mergedPrices.json"
 import { rebalancePortfolioFunction, initializePortfolioByEquityRatio, getEquityRatios } from "../src/strategies/rebalance"
 import { computeMarketValues } from "../src/computeMarketValues"

@@ -33,6 +33,10 @@ function getEquityRatios(dateStrings: string[], equityRatioFunction: EquityRatio
   return dateStrings.map(string => equityRatiosByYear[string.substr(0, 4)])
 }
 
+function getEquityRatiosByFundByDate(dateStrings: string[], equityRatioFunction: EquityRatioFunction | RatioByFund): RatioByFundByDate {
+  return _.zipObject(dateStrings, getEquityRatios(dateStrings, equityRatioFunction))
+}
+
 function initializePortfolioByEquityRatio(investmentAmount, initialEquityRatioByFund: RatioByFund): PortfolioInitializationFunction {
   return function (openingPriceByFund) {
     return _.reduce(initialEquityRatioByFund, (dollarByFund, ratio, fund) => {
@@ -43,7 +47,7 @@ function initializePortfolioByEquityRatio(investmentAmount, initialEquityRatioBy
   }
 }
 
-function rebalancePortfolioFunction(ratiosByFund: { [date: string]: RatioByFund }, ratioTolerance: number): DollarChangeFunction {
+function rebalancePortfolioFunction(ratiosByFund: RatioByFundByDate, ratioTolerance: number): DollarChangeFunction {
   return function ({
     previousDayPortfolio,
     openingPrices,
@@ -86,10 +90,14 @@ function rebalancePortfolioFunction(ratiosByFund: { [date: string]: RatioByFund 
   }
 }
 
+type RatioByFundByDate = { [date: string]: RatioByFund }
+
 export {
   rebalancePortfolioFunction,
   getEquityRatios,
   getAnnualEquityRatio,
   initializePortfolioByEquityRatio,
-  RatioByFund
+  getEquityRatiosByFundByDate,
+  RatioByFund,
+  RatioByFundByDate,
 }

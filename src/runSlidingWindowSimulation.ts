@@ -1,7 +1,7 @@
 import * as _ from "lodash"
 import { DateTime, Duration } from 'luxon';
 import { OpenClosePriceByFundByDate } from "./types"
-import { findClosestDate, dateFrom, formatDate, log } from "./utils"
+import { findClosestDate, dateFrom, formatDate, log, timeProcess } from "./utils"
 
 type ComputeMarketValuesFunction<R> = (price) => R
 
@@ -37,7 +37,9 @@ function runSlidingWindowSimulation<R>(
       return pricesByDate
     }, {})
 
-    simulationResults.push(computeMarketValuesFunction(pricesThisSimulation))
+    timeProcess(`Window simulation ${startDateString} to ${lastDateString}`)(() => {
+      simulationResults.push(computeMarketValuesFunction(pricesThisSimulation))
+    })
   }
   return simulationResults
 }
